@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { CardContext } from "../../contexts/CartdContexct";
 
 const CartOverlay = () => {
-	const [isCartOpen, setIsCartOpen] = useState(true);
+	const cartInfo = useContext(CardContext);
 
 	return (
 		<div
-			className={`h-screen w-screen fixed top-0 left-0 flex z-50 ease-in-out duration-200 ${isCartOpen ? "translate-x-0" : "translate-x-full"}`}
+			className={`h-screen w-screen fixed top-0 left-0 flex z-50 ease-in-out duration-200 ${cartInfo.isCartOpen ? "translate-x-0" : "translate-x-full"}`}
 		>
 			<section
 				id="outside-of-cart"
-				onClick={() => setIsCartOpen(false)}
+				onClick={() => cartInfo.setIsCartOpen(false)}
 				onKeyDown={(e) => {
 					if (e.key === "Enter") {
 						setIsCartOpen(false);
