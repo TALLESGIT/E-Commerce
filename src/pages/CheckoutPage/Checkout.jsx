@@ -1,9 +1,5 @@
 const Checkout = () => {
-	return (
-		<section>
-			<h1>Checkout</h1>
-		</section>
-	);
+	return <h1>Bem-vindo à página de checkout</h1>;
 };
 
 export default Checkout;

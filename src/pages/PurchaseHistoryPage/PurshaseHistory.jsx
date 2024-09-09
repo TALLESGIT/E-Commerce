@@ -1,9 +1,3 @@
-const PurcheaseHistory = () => {
-	return (
-		<section>
-			<h1>PurcheaseHistory</h1>
-		</section>
-	);
-};
+const PurchaseHistory = () => {};
 
-export default PurcheaseHistory;
+export default PurchaseHistory;

@@ -74,7 +74,7 @@ export const catalog = [
 	},
 ];
 
-export const catalogIndexById = catalog.reduce((acc, currentValue) => {
+export const catalogIndexedById = catalog.reduce((acc, currentValue) => {
 	const { id } = currentValue;
 	acc[id] = currentValue;
 	return acc;

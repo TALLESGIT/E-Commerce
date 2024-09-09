@@ -1,15 +1,22 @@
-import { Route, Routes } from "react-router-dom";
-import Header from "./components/header.jsx";
-import Checkout from "./pages/CheckoutPage/Checkout.jsx";
-import Home from "./pages/HomePage/Home.jsx";
-import PurcheaseHistory from "./pages/PurchaseHistoryPage/PurshaseHistory.jsx";
-import { CardContext } from "./contexts/CartdContexct.js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Home from "./pages/HomePage/Home";
+import Checkout from "./pages/CheckoutPage/Checkout";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/header";
+import PurchaseHistory from "./pages/PurchaseHistoryPage/PurshaseHistory";
+import { CartContext } from "./contexts/CartdContexct";
 
-export default function App() {
+function App() {
 	const [isCartOpen, setIsCartOpen] = useState(false);
-
 	const [cartItems, setCartItems] = useState({});
+
+	const toggleCartOpen = () => setIsCartOpen(!isCartOpen);
+
+	const removeFromCart = (productId) => {
+		const cartItemsCopy = { ...cartItems };
+		delete cartItemsCopy[productId];
+		setCartItems(cartItemsCopy);
+	};
 
 	const addToCart = (productId) => {
 		setCartItems({
@@ -18,23 +25,36 @@ export default function App() {
 		});
 	};
 
-	const decreaseUnits = (productId) => {
-		setCartItems({
-			...cartItems,
-			[productId]: (cartItems[productId] ?? 0) - 1,
-		});
+	const decreaseUnit = (productId) => {
+		if (cartItems[productId] > 1) {
+			setCartItems({
+				...cartItems,
+				[productId]: cartItems[productId] - 1,
+			});
+		} else {
+			removeFromCart(productId);
+		}
 	};
 
 	return (
-		<CardContext.Provider
-			value={{ isCartOpen, setIsCartOpen, cartItems, addToCart, decreaseUnits }}
+		<CartContext.Provider
+			value={{
+				isCartOpen,
+				toggleCartOpen,
+				cartItems,
+				addToCart,
+				decreaseUnit,
+				removeFromCart,
+			}}
 		>
 			<Header />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="checkout" element={<Checkout />} />
-				<Route path="/history" element={<PurcheaseHistory />} />
+				<Route path="/checkout" element={<Checkout />} />
+				<Route path="/history" elemtn={<PurchaseHistory />} />
 			</Routes>
-		</CardContext.Provider>
+		</CartContext.Provider>
 	);
 }
+
+export default App;

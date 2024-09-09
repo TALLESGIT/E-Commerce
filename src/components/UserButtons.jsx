@@ -1,36 +1,32 @@
+import { useState, useContext, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons/faCartShopping";
+import { faBagShopping, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { CardContext, getAmountOfItemsInCart } from "../contexts/CartdContexct";
+import { CartContext, getAmountOfItemsInCart } from "../contexts/CartdContexct";
 
 const UserButtons = () => {
-	const [amountItems, setAmountItems] = useState(0);
-
-	const { setIsCartOpen, cartItems } = useContext(CardContext);
+	const [amountOfItems, setAmountOfItems] = useState(0);
+	const { toggleCartOpen, cartItems } = useContext(CartContext);
 
 	useEffect(() => {
-		setAmountItems(getAmountOfItemsInCart(cartItems));
+		setAmountOfItems(getAmountOfItemsInCart(cartItems));
 	}, [cartItems]);
 
 	return (
-		<div className="px-2">
-			{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-			<button className="px-2 relative" onClick={() => setIsCartOpen(true)}>
-				<FontAwesomeIcon icon={faCartShopping} />
-				{!!amountItems && (
+		<div>
+			<button type="button" className="px-2 relative" onClick={toggleCartOpen}>
+				<FontAwesomeIcon icon={faBagShopping} />
+				{!!amountOfItems && (
 					<div
-						id="cart-amout"
-						className="absolute inline-flex items-center justify-center w-4 h-4 font-bold text-white bg-red-500 rounded-full -top-2 -right-0 text-xs"
+						id="cart-amount"
+						className="absolute inline-flex items-center justify-center w-6 h-6 font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 text-sm"
 					>
-						{amountItems}
+						{amountOfItems}
 					</div>
 				)}
 			</button>
-
 			<Link to="/history">
-				<FontAwesomeIcon icon={faUser} />
+				<FontAwesomeIcon className="px-2" icon={faUser} />
 			</Link>
 		</div>
 	);

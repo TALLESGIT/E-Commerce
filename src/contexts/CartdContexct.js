@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export const CardContext = createContext(null);
+export const CartContext = createContext(null);
 
 export const getAmountOfItemsInCart = (cartItemsObj) => {
 	let amount = 0;

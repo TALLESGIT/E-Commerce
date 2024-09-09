@@ -1,12 +1,11 @@
 import { useContext } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import CartProducts from "./CartProducts";
-import { CardContext } from "../../contexts/CartdContexct";
+import { CartContext } from "../../contexts/CartdContexct";
 
 const CartOverlay = () => {
-	const { isCartOpen, toggleCartOpen } = useContext(CardContext);
+	const { isCartOpen, toggleCartOpen } = useContext(CartContext);
 
 	return (
 		<div
@@ -28,8 +27,7 @@ const CartOverlay = () => {
 			>
 				<div className="flex justify-between content-center border-b border-slate-200 pb-1">
 					<p>Minha Sacola</p>
-					{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-					<button onClick={toggleCartOpen}>
+					<button type="button" onClick={toggleCartOpen}>
 						<FontAwesomeIcon icon={faCircleXmark} />
 					</button>
 				</div>

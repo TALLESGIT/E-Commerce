@@ -1,23 +1,23 @@
 import { useContext } from "react";
-import { CardContext } from "../../contexts/CartdContexct";
+import { CartContext } from "../../contexts/CartdContexct";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { catalogIndexById } from "../../utils/catalog";
+import { catalogIndexedById } from "../../utils/catalog";
 
 const CartItem = ({ id, amount }) => {
-	const { addToCart, decreaseUnits } = useContext(CardContext);
-	const { price, image, name } = catalogIndexById[id];
-
+	const { addToCart, decreaseUnit, removeFromCart } = useContext(CartContext);
+	const { price, name, image } = catalogIndexedById[id];
 	return (
 		<article className="flex bg-stone-100 p-1 border rounded-mg relative">
 			<img
 				src={image}
-				alt={`Imagem do produt ${id}, ${name}`}
+				alt={`Imagem do produto ${id}, ${name}.`}
 				className="h-24"
 			/>
 			<button
 				type="button"
-				className="text-right text-l  absolute top-0 right-2 text-slate-950"
+				onClick={() => removeFromCart(id)}
+				className="text-right text-l absolute top-0 right-2 text-slate-950"
 			>
 				<FontAwesomeIcon icon={faXmark} />
 			</button>
@@ -28,7 +28,7 @@ const CartItem = ({ id, amount }) => {
 				<div className="flex text-slate-950 absolute right-2 bottom-0 mb-2">
 					<button
 						type="button"
-						onClick={() => decreaseUnits(id)}
+						onClick={() => decreaseUnit(id)}
 						className="border border-slate-400 hover:border-slate-900 mb-2"
 					>
 						<FontAwesomeIcon icon={faMinus} className="p-1" />

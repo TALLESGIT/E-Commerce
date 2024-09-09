@@ -1,5 +1,5 @@
-import ProductsContainer from "./ProdutcsContainer";
 import ProductFilter from "./ProductFilter";
+import ProductsContainer from "./ProdutcsContainer";
 
 const MainSection = () => {
 	return (
