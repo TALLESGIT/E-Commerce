@@ -18,9 +18,16 @@ export default function App() {
 		});
 	};
 
+	const decreaseUnits = (productId) => {
+		setCartItems({
+			...cartItems,
+			[productId]: (cartItems[productId] ?? 0) - 1,
+		});
+	};
+
 	return (
 		<CardContext.Provider
-			value={{ isCartOpen, setIsCartOpen, cartItems, addToCart }}
+			value={{ isCartOpen, setIsCartOpen, cartItems, addToCart, decreaseUnits }}
 		>
 			<Header />
 			<Routes>
